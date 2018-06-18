@@ -7,18 +7,16 @@ class SearchBooks extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {searchResults: []}
+        this.state = {results: []}
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
         const query = event.target.value
         if (query) {
-            BooksAPI.search(query).then((results) => {
+            BooksAPI.search(query.trim()).then((results) => {
                 if (!results.error) {
                     this.setState({results})
-                } else {
-                    alert("No book found with query " + query)
                 }
             })
         }
@@ -38,7 +36,7 @@ class SearchBooks extends React.Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         <Shelf
-                            books={this.state.searchResults}/>
+                            books={this.state.results}/>
                     </ol>
                 </div>
             </div>
