@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBooks from './SearchBooks'
 import {Link, Route} from 'react-router-dom'
-import Shelf from "./Shelf";
+import BookShelf from "./BookShelf";
 
 class BooksApp extends React.Component {
     state = {
@@ -16,52 +16,24 @@ class BooksApp extends React.Component {
         })
     }
 
-    static checkShelf(shelf, actual) {
-        return shelf === actual;
-    }
-
     render() {
         return (
             <div className="app">
-                <Route path='/search' render={({history}) => (
-                    <SearchBooks
-                        allBooks={this.state.books}
-                    />
+                <Route path='/search' render={() => (
+                    <SearchBooks/>
                 )}/>
-                <Route exact path='/' render={({history}) => (
-                    <div className="list-books">
+                <Route exact path='/' render={() => (
+                    <div className="list-books-content">
                         <div className="list-books-title">
                             <h1>Chris' Reads</h1>
                         </div>
 
                         <div className="list-books-content">
-                            <div>
-                                <ol className='book-shelf-list'>
-                                    <li key='0' className='shelf-list-item'>
-                                        <Shelf
-                                            shelfTitle='Currently Reading'
-                                            books={this.state.books.filter((book) => book.shelf === "currentlyReading")}
-                                        />
-                                    </li>
-                                    <li key='1' className='shelf-list-item'>
-                                        <Shelf
-                                            shelfTitle='Currently Reading'
-                                            books={this.state.books.filter((book) => book.shelf === "wantToRead")}
-                                        />
-                                    </li>
-                                    <li key='2' className='shelf-list-item'>
-                                        <Shelf
-                                            shelfTitle='Currently Reading'
-                                            books={this.state.books.filter((book) => book.shelf === "read")}
-                                        />
-                                    </li>
-                                    ))}
-                                </ol>
-                            </div>
-                        </div>
+                            <BookShelf books={this.state.books}/>
 
-                        <div className="open-search">
-                            <Link className='open-search' to='/search'>Add a book</Link>
+                            <div className="open-search">
+                                <Link className='open-search' to='/search'>Add a book</Link>
+                            </div>
                         </div>
                     </div>
                 )}

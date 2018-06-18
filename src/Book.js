@@ -4,24 +4,22 @@ import ShelfChanger from './ShelfChanger'
 class Book extends React.Component {
 
     render() {
-        const {coverURL, bookTitle, bookAuthor} = this.props
+        const {book} = this.props
         return (
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: coverURL
+                        backgroundImage: "url(" + book.imageLinks.thumbnail + ")"
                     }}/>
-                    <div className="book-shelf-changer">
-                        <ShelfChanger/>
-                    </div>
+                    <ShelfChanger selectedBook={book}/>
                 </div>
                 <div className="book-title">{
-                    bookTitle
+                    book.title
                 }</div>
                 <div className="book-authors">{
-                    bookAuthor
+                    book.author
                 }</div>
             </div>
         )
