@@ -40,19 +40,19 @@ class BooksApp extends React.Component {
                                     <li key='0' className='shelf-list-item'>
                                         <Shelf
                                             shelfTitle='Currently Reading'
-                                            books={this.state.books.filter(((BooksApp.checkShelf("currentlyReading"))))}
+                                            books={this.state.books.filter((book) => book.shelf === "currentlyReading")}
                                         />
                                     </li>
                                     <li key='1' className='shelf-list-item'>
                                         <Shelf
                                             shelfTitle='Currently Reading'
-                                            books={this.state.books.filter(((BooksApp.checkShelf("wantToRead"))))}
+                                            books={this.state.books.filter((book) => book.shelf === "wantToRead")}
                                         />
                                     </li>
                                     <li key='2' className='shelf-list-item'>
                                         <Shelf
                                             shelfTitle='Currently Reading'
-                                            books={this.state.books.filter(((BooksApp.checkShelf("read"))))}
+                                            books={this.state.books.filter((book) => book.shelf === "read")}
                                         />
                                     </li>
                                     ))}
@@ -64,7 +64,8 @@ class BooksApp extends React.Component {
                             <Link className='open-search' to='/search'>Add a book</Link>
                         </div>
                     </div>
-                )}/>
+                )}
+                />
             </div>
         )
     }
