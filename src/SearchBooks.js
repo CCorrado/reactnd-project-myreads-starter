@@ -19,8 +19,13 @@ class SearchBooks extends React.Component {
         const query = event.target.value
         if (query) {
             BooksAPI.search(query.trim()).then((results) => {
-                if (!results.error) {
-                    //TODO map shelves from books in results
+                if (results && !results.error) {
+                    results.forEach((result) => {
+                        let found = this.state.books.find((book) => {
+                            return book.id === result.id
+                        })
+                        result.shelf = found ? found.shelf : "none";
+                    })
                     this.setState({results})
                 } else {
                     this.setState({results: []})
