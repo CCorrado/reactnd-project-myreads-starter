@@ -3,11 +3,22 @@ import ShelfChanger from './ShelfChanger'
 
 class Book extends React.Component {
 
+    book
+
+    constructor(props) {
+        super(props)
+        this.book = this.props.book
+        this.onShelfChange = this.onShelfChange.bind(this)
+    }
+
+    onShelfChange() {
+        this.setState(this.book)
+    }
+
     render() {
-        const {book} = this.props
         let imageURL = ""
-        if (book.imageLinks) {
-            imageURL = book.imageLinks.thumbnail
+        if (this.book.imageLinks) {
+            imageURL = this.book.imageLinks.thumbnail
         }
 
         return (
@@ -18,13 +29,18 @@ class Book extends React.Component {
                         height: 193,
                         backgroundImage: "url(" + imageURL + ")"
                     }}/>
-                    <ShelfChanger selectedBook={book}/>
+                    <ShelfChanger
+                        selectedBook={this.book}
+                        onShelfChange={() => {
+                            this.changeShelf(this.book)
+                        }}
+                    />
                 </div>
                 <div className="book-title">{
-                    book.title
+                    this.book.title
                 }</div>
                 <div className="book-authors">{
-                    book.authors != null && book.authors.join(", ")
+                    this.book.authors != null && this.book.authors.join(", ")
                 }</div>
             </div>
         )

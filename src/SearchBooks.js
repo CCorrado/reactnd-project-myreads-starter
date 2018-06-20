@@ -6,7 +6,8 @@ import Shelf from "./Shelf";
 class SearchBooks extends React.Component {
 
     state = {
-        results: []
+        results: [],
+        books: this.props.books
     }
 
     constructor(props) {
@@ -19,6 +20,7 @@ class SearchBooks extends React.Component {
         if (query) {
             BooksAPI.search(query.trim()).then((results) => {
                 if (!results.error) {
+                    //TODO map shelves from books in results
                     this.setState({results})
                 } else {
                     this.setState({results: []})

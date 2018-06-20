@@ -8,14 +8,20 @@ class ShelfChanger extends React.Component {
         super(props);
         this.selectedBook = this.props.selectedBook
         this.handleChange = this.handleChange.bind(this);
+        this.onShelfChange = this.onShelfChange.bind(this)
+    }
+
+    onShelfChange() {
+        this.setState(this.selectedBook)
+        return this.selectedBook
     }
 
     handleChange(event) {
         const shelf = event.target.value
         BooksAPI.update(this.selectedBook, shelf).then(() => {
             // alert("You moved " + this.selectedBook.title + " to the " + shelf + " shelf.");
-            //TODO Come up with a better way to reload the page?
-            window.location.reload()
+            this.selectedBook.shelf = shelf
+            this.onShelfChange()
         })
     }
 

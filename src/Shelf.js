@@ -3,6 +3,15 @@ import Book from "./Book"
 
 class Shelf extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.onShelfChange = this.onShelfChange.bind(this)
+    }
+
+    onShelfChange() {
+        this.setState()
+    }
+
     render() {
         const {shelfTitle, books} = this.props
         return (
@@ -12,7 +21,12 @@ class Shelf extends React.Component {
                     <ol className='books-grid'>{
                         books.map((book) => (
                             <li key={book.id} className='book-list-item'>
-                                <Book book={book}/>
+                                <Book
+                                    book={book}
+                                    onShelfChange={() => {
+                                        this.changeShelf()
+                                    }}
+                                />
                             </li>
                         ))}
                     </ol>

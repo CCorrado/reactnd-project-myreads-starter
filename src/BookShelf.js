@@ -3,29 +3,43 @@ import Shelf from "./Shelf";
 
 class BookShelf extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.setState(props.books)
+        this.changeShelf = this.changeShelf.bind(this)
+        this.onShelfChange = this.onShelfChange.bind(this)
+    }
+
+    onShelfChange() {
+        //no-op
+    }
+
+    changeShelf() {
+        this.onShelfChange()
+    }
+
     render() {
-        const {books} = this.props
+        const shelves = {
+            currentlyReading: ['Currently Reading', 'currentlyReading'],
+            wantToRead: ['Want to Read', 'wantToRead'],
+            read: ['Read', 'read']
+        }
+
         return (
             <div>
                 <ol className='book-shelf-list'>
-                    <li key='0' className='shelf-list-item'>
-                        <Shelf
-                            shelfTitle='Currently Reading'
-                            books={books.filter((book) => book.shelf === "currentlyReading")}
-                        />
-                    </li>
-                    <li key='1' className='shelf-list-item'>
-                        <Shelf
-                            shelfTitle='Want To Read'
-                            books={books.filter((book) => book.shelf === "wantToRead")}
-                        />
-                    </li>
-                    <li key='2' className='shelf-list-item'>
-                        <Shelf
-                            shelfTitle='Read'
-                            books={books.filter((book) => book.shelf === "read")}
-                        />
-                    </li>
+                    <div className='list-books-content'>
+                        {Object.keys(shelves).map((shelf) =>
+                            <Shelf key={shelf}
+                                   shelf={shelves[shelf][1]}
+                                   shelfTitle={shelves[shelf][0]}
+                                   books={this.props.books.filter((book) => book.shelf === shelf)}
+                                   onShelfChange={() => {
+                                       this.changeShelf()
+                                   }}
+                            />
+                        )}
+                    </div>
                 </ol>
             </div>
         )
