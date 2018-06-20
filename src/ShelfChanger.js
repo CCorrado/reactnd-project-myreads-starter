@@ -13,7 +13,7 @@ class ShelfChanger extends React.Component {
     handleChange(event) {
         const shelf = event.target.value
         BooksAPI.update(this.selectedBook, shelf).then(() => {
-            alert("You moved " + this.selectedBook.title + " to the " + shelf + " shelf.");
+            // alert("You moved " + this.selectedBook.title + " to the " + shelf + " shelf.");
             //TODO Come up with a better way to reload the page?
             window.location.reload()
         })

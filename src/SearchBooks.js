@@ -5,9 +5,12 @@ import Shelf from "./Shelf";
 
 class SearchBooks extends React.Component {
 
+    state = {
+        results: []
+    }
+
     constructor(props) {
         super(props);
-        this.state = {results: []}
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -17,8 +20,12 @@ class SearchBooks extends React.Component {
             BooksAPI.search(query.trim()).then((results) => {
                 if (!results.error) {
                     this.setState({results})
+                } else {
+                    this.setState({results: []})
                 }
             })
+        } else {
+            this.setState({results: []})
         }
     }
 
